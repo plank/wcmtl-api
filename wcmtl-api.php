@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: WordCamp Montreal API Demo
- * Plugin URI: https://plank.co/
- * Description: A plugin demoing a custom API endpoint.
+ * Plugin URI: https://github.com/plank/wcmtl-api
+ * Description: A plugin demoing custom API endpoints.
  * Version: 0.1
  * Author: Christina Garofalo
  * Author URI: https://profiles.wordpress.org/cold-iron-chef/
