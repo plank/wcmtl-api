@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<ruleset name="Plank PHPCS">
+	<description>Plank PHPCS extended.</description>
+	<rule ref="Plank-Default" />
+</ruleset>
