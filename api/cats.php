@@ -134,6 +134,7 @@ function get_cats( object $request ) {
 				'id'       => (int) get_the_ID(),
 				'title'    => esc_html( html_entity_decode( wp_strip_all_tags( get_the_title() ) ) ),
 				'excerpt'  => get_the_excerpt(),
+				'content'  => get_the_content(),
 				'image'    => esc_url( $featured_image_url ),
 				'alt_text' => esc_html( $alt_text ),
 				'breeds'   => $breeds,
