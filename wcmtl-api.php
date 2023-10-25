@@ -42,7 +42,7 @@ function wcmtlapi_custom_post_type() {
 			'hierarchical'        => false,
 			'show_in_rest'        => false,
 			'exclude_from_search' => true,
-			'menu_icon'           => 'dashicons-buddicons-activity',
+			'menu_icon'           => 'data:image/svg+xml;base64,' . base64_encode( file_get_contents( __DIR__ . '/assets/cat-solid.svg' ) ),
 			'capability_type'     => 'post',
 			'rewrite'             => [
 				'slug' => 'cats',
