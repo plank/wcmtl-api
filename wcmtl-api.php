@@ -42,7 +42,7 @@ function wcmtlapi_custom_post_type() {
 			'hierarchical'        => false,
 			'show_in_rest'        => false,
 			'exclude_from_search' => true,
-			'menu_icon'           => 'data:image/svg+xml;base64,' . base64_encode( file_get_contents( __DIR__ . '/assets/cat-solid.svg' ) ),
+			'menu_icon'           => wcmtlapi_get_svg( 'cat' ),
 			'capability_type'     => 'post',
 			'rewrite'             => [
 				'slug' => 'cats',
@@ -132,4 +132,23 @@ function wcmtlapi_taxonomy_pattern() {
 			],
 		]
 	);
+}
+
+/**
+ * Get svg icon for custom post type
+ *
+ * @param string $icon The icon name
+ *
+ * @return string
+ */
+function wcmtlapi_get_svg( $icon ) {
+	// Fallback to dashicons if the icon can't be found.
+	$svg = 'dashicons-admin-post';
+
+	if ( file_exists( __DIR__ . '/assets/' . $icon . '.svg' ) ) {
+		// The fill attribute needs to be set to "black" for WordPress to be able to change the color.
+		$svg = 'data:image/svg+xml;base64,' . base64_encode( file_get_contents( __DIR__ . '/assets/' . $icon . '.svg' ) );
+	}
+
+	return $svg;
 }
