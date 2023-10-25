@@ -18,10 +18,10 @@ add_action( 'init', 'wcmtlapi_taxonomy_colour' );
 add_action( 'init', 'wcmtlapi_taxonomy_breed' );
 add_action( 'init', 'wcmtlapi_taxonomy_pattern' );
 
-// Load the API
-require_once __DIR__ . '/api/_routes.php';
-require_once __DIR__ . '/api/cats.php';
-require_once __DIR__ . '/api/basic.php';
+// Load the API (All files in the api directory)
+foreach ( glob( __DIR__ . '/api/*.php' ) as $file ) {
+	require $file;
+}
 
 /**
  * Register Custom Post Type
@@ -147,7 +147,7 @@ function wcmtlapi_get_svg( $icon ) {
 
 	if ( file_exists( __DIR__ . '/assets/' . $icon . '.svg' ) ) {
 		// The fill attribute needs to be set to "black" for WordPress to be able to change the color.
-		$svg = 'data:image/svg+xml;base64,' . base64_encode( file_get_contents( __DIR__ . '/assets/' . $icon . '.svg' ) );
+		$svg = 'data:image/svg+xml;base64,' . base64_encode( file_get_contents( __DIR__ . '/assets/' . $icon . '.svg' ) ); //phpcs:ignore
 	}
 
 	return $svg;

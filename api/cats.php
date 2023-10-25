@@ -8,6 +8,8 @@
 namespace WCMTLAPI\plugin\API;
 
 /**
+ * Generate the cats data for the API
+ *
  * @param object $request Additional parameters passed to the endpoint.
  *
  * @return \WP_Error|\WP_HTTP_Response|\WP_REST_Response
