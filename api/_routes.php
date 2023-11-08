@@ -27,7 +27,7 @@ function register_routes() {
 		[
 			'methods'             => 'GET',
 			'callback'            => __NAMESPACE__ . '\\get_cats',
-			'permission_callback' => '__return_true',
+			'permission_callback' => '__return_true', // public endpoint
 		]
 	);
 
@@ -38,7 +38,7 @@ function register_routes() {
 		[
 			'methods'             => 'GET',
 			'callback'            => __NAMESPACE__ . '\\get_basic',
-			'permission_callback' => '__return_true',
+			'permission_callback' => '__return_true', // public endpoint
 		]
 	);
 
@@ -52,7 +52,7 @@ function register_routes() {
 			'methods'             => 'GET',
 			'callback'            => __NAMESPACE__ . '\\get_secrets',
 			'permission_callback' => function () {
-				return current_user_can( 'update_plugins' );
+				return current_user_can( 'update_plugins' ); // Only logged-in users with the update_plugins capability can access this endpoint.
 			},
 		]
 	);

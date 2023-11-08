@@ -35,6 +35,10 @@ function wcmtlapi_custom_post_type() {
 			'labels'              => [
 				'name'          => __( 'Cats', 'wcmtlapi' ),
 				'singular_name' => __( 'Cat', 'wcmtlapi' ),
+				'add_new'       => __( 'Add New Cat', 'wcmtlapi' ),
+				'add_new_item'  => __( 'Add New Cat', 'wcmtlapi' ),
+				'edit_item'     => __( 'Edit Cat', 'wcmtlapi' ),
+				'all_items'     => __( 'All Cats', 'wcmtlapi' ),
 			],
 			'public'              => false,
 			'show_ui'             => true,
@@ -69,6 +73,8 @@ function wcmtlapi_taxonomy_breed() {
 			'labels'              => [
 				'name'          => __( 'Breeds', 'wcmtlapi' ),
 				'singular_name' => __( 'Breed', 'wcmtlapi' ),
+				'add_new'       => __( 'Add New Breed', 'wcmtlapi' ),
+				'add_new_item'  => __( 'Add New Breed', 'wcmtlapi' ),
 			],
 			'public'              => false,
 			'show_ui'             => true,
@@ -95,6 +101,8 @@ function wcmtlapi_taxonomy_colour() {
 			'labels'              => [
 				'name'          => __( 'Colours', 'wcmtlapi' ),
 				'singular_name' => __( 'Colour', 'wcmtlapi' ),
+				'add_new'       => __( 'Add New Colour', 'wcmtlapi' ),
+				'add_new_item'  => __( 'Add New Colour', 'wcmtlapi' ),
 			],
 			'public'              => false,
 			'show_ui'             => true,
@@ -121,6 +129,8 @@ function wcmtlapi_taxonomy_pattern() {
 			'labels'              => [
 				'name'          => __( 'Patterns', 'wcmtlapi' ),
 				'singular_name' => __( 'Pattern', 'wcmtlapi' ),
+				'add_new'       => __( 'Add New Pattern', 'wcmtlapi' ),
+				'add_new_item'  => __( 'Add New Pattern', 'wcmtlapi' ),
 			],
 			'public'              => false,
 			'show_ui'             => true,
@@ -146,9 +156,32 @@ function wcmtlapi_get_svg( $icon ) {
 	$svg = 'dashicons-admin-post';
 
 	if ( file_exists( __DIR__ . '/assets/' . $icon . '.svg' ) ) {
-		// The fill attribute needs to be set to "black" for WordPress to be able to change the color.
+		// The fill attribute needs to be set to "black" for WordPress to be able to change the colour.
 		$svg = 'data:image/svg+xml;base64,' . base64_encode( file_get_contents( __DIR__ . '/assets/' . $icon . '.svg' ) ); //phpcs:ignore
 	}
 
 	return $svg;
+}
+
+// Bonus: Restrict User endpoints
+add_filter( 'rest_endpoints', __NAMESPACE__ . '\\wcmtlapi_restrict_user_endpoints' );
+
+/**
+ * Remove user endpoints for unauthorized users.
+ *
+ * @param  array $endpoints Array of endpoints
+ *
+ * @return array $endpoints Filtered list of endpoints
+ */
+function wcmtlapi_restrict_user_endpoints( $endpoints ) {
+	if ( ! is_user_logged_in() ) {
+		if ( isset( $endpoints['/wp/v2/users'] ) ) {
+			unset( $endpoints['/wp/v2/users'] );
+		}
+		if ( isset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] ) ) {
+			unset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
+		}
+	}
+
+	return $endpoints;
 }
